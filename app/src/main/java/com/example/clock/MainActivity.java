@@ -45,8 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
         btnStartClock.setOnClickListener(view -> {
             long seconds = (dateTime.getTimeInMillis() - System.currentTimeMillis()) / 1000;
-            seconds = seconds < 0 ? seconds * -1 : seconds;
+            seconds = seconds < 0 ? 24 * 60 * 60 + seconds: seconds;
             Toast.makeText(this, "Будильник установлен!", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, String.valueOf(seconds), Toast.LENGTH_LONG).show();
             Intent intent = new Intent(MainActivity.this, Alarm.class);
             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
             alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + seconds * 1000L - 60, PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0));
